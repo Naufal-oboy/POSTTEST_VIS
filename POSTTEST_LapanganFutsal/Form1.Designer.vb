@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Label1 = New Label()
         Label2 = New Label()
         Label3 = New Label()
@@ -42,8 +43,10 @@ Partial Class Form1
         TxtCari = New TextBox()
         Panel1 = New Panel()
         Label7 = New Label()
+        ErrorProvider1 = New ErrorProvider(components)
         CType(DgvLapangan, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
+        CType(ErrorProvider1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Label1
@@ -221,6 +224,10 @@ Partial Class Form1
         Label7.TabIndex = 0
         Label7.Text = "KICK-OFF Manager: Sistem Kendali Inventaris dan Status Lapangan Futsal."
         ' 
+        ' ErrorProvider1
+        ' 
+        ErrorProvider1.ContainerControl = Me
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -251,6 +258,7 @@ Partial Class Form1
         CType(DgvLapangan, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(ErrorProvider1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -275,5 +283,6 @@ Partial Class Form1
     Friend WithEvents TxtCari As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label7 As Label
+    Friend WithEvents ErrorProvider1 As ErrorProvider
 
 End Class

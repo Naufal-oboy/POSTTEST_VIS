@@ -12,13 +12,13 @@
     End Sub
 
     Private Sub btnSimpan_Click(sender As Object, e As EventArgs) Handles BtnSimpan.Click
-        If IsEmpty(TxtID, TxtNama, TxtHarga, CmbLokasi, CmbStatus, CmbAC) Then
-            MessageBox.Show("Semua data wajib diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If Not CekValidasi(ErrorProvider1, TxtID, TxtNama, TxtHarga, CmbLokasi, CmbStatus, CmbAC) Then
+            MessageBox.Show("Mohon perbaiki kolom yang bertanda merah!", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         If SimpanLapangan(TxtID.Text, TxtNama.Text, CmbLokasi.Text, Val(TxtHarga.Text), CmbStatus.Text, CmbAC.Text) Then
-            MessageBox.Show("Data Berhasil Disimpan", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Data Berhasil Disimpan", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
             RefreshGrid()
             BtnReset.PerformClick()
         End If
@@ -40,13 +40,16 @@
     End Sub
 
     Private Sub btnUbah_Click(sender As Object, e As EventArgs) Handles BtnUbah.Click
+        If Not CekValidasi(ErrorProvider1, TxtID, TxtNama, TxtHarga, CmbLokasi, CmbStatus, CmbAC) Then
+            Exit Sub
+        End If
+
         If UbahLapangan(TxtID.Text, TxtNama.Text, CmbLokasi.Text, Val(TxtHarga.Text), CmbStatus.Text, CmbAC.Text) Then
             MessageBox.Show("Data Berhasil Diperbarui", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
             RefreshGrid()
             BtnReset.PerformClick()
         End If
     End Sub
-
     Private Sub btnHapus_Click(sender As Object, e As EventArgs) Handles BtnHapus.Click
         Dim konfirmasi As DialogResult = MessageBox.Show("Hapus Lapangan ID: " & TxtID.Text & "?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -74,6 +77,7 @@
         CmbStatus.SelectedIndex = -1
         CmbAC.SelectedIndex = -1
         TxtID.ReadOnly = False
+        ErrorProvider1.Clear()
         TxtID.Focus()
     End Sub
 
